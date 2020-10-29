@@ -14,7 +14,7 @@ def process_dir(path, indent):
     
     for item in os.listdir(path):
         #print(item)
-        #break
+        break
     #we use if statement to control the flow
     #in the first if block, when the expresion is true, the code is executed
     #if the expression is false, we skip to the next elif statement
