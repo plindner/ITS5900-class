@@ -1,9 +1,9 @@
 
 import os
 
- 
+
 def process_dir(p, indent):
-    for item in os.listdir(path): 
+    for item in os.listdir(path):
         if os.path.isfile("{0}/{1}".format(path, item)):
             print("\t"*indent, item)
         elif os.path.isdir("{0}/{1}".format(path, item)):
