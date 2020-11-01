@@ -18,9 +18,14 @@ def process_dir(p, indent):
             print("Not a file or directory")
 
 
-#the user provides an input of the file path
-path=input("Enter a valid system path: ")
-#an output of the file path is printed with ANSI colour red
-print("\x1b[1;31m{}\x1b[0;0m".format(path))
-#the function is called to process the input the user gives
-process_dir(path, 1)
+#try and except functions are used to catch errors
+try:
+    #the user provides an input of the file path
+    path=input("Enter a valid system path: ")
+    #an output of the file path is printed with ANSI colour red
+    print("\x1b[1;31m{}\x1b[0;0m".format(path))
+    #the function is called to process the input the user gives
+    process_dir(path, 1)
+
+except FileNotFoundError:
+    print("The file path does not exist")
