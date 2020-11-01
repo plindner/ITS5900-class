@@ -15,7 +15,7 @@ import os # importing the module os
  
 def process_dir(p, indent): # defining a function (process_dir) with two arguments p and indent.
     
-    
+   try: 
     for item in os.listdir(p): # checks for item in the path given by user.
         
         if os.path.isfile("{0}/{1}".format(p, item)):# checks whether the specified path is an existing regular file or not, if it is then it checks the item from the given path.
@@ -27,9 +27,10 @@ def process_dir(p, indent): # defining a function (process_dir) with two argumen
             
         else:
             print("Not a file or directory") # if in the path, the item is not a file or directory then it prints the output as Not a file or directory.
-
-
-
+   except Exception as b: # Userdefined exception, as the we don't know what would be the error we are using the exception method to handle the error.
+       print("Invalid path/input:\n" + str(b)) # if the path is not valid then it will handle the error and print Invalid path 
+      
+     
 
 p=input("Enter a valid system path: ") # asks user for the input.
 print("\x1b[1;31m{}\x1b[0;0m".format(p)) # prints the path in red color using ANSI color code in python.
