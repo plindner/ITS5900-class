@@ -27,5 +27,5 @@ try:
     #the function is called to process the input the user gives
     process_dir(path, 1)
 
-except FileNotFoundError:
-    print("The file path does not exist")
+except (FileNotFoundError, NotADirectoryError):
+    print("Your input is not a valid file path")
