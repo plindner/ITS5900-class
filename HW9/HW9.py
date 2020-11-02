@@ -1,32 +1,43 @@
-
 import os
-
-# process_dir funciton definition
-# process list files/directory of a given path, p
-# with depth of the directory structure, indent 
-def process_dir(p, indent):
-
-    # loop through list of items (files/directory) for given path
-    for item in os.listdir(path):
-        
-        # check if item is a file given the path and item name
-        if os.path.isfile("{0}/{1}".format(path, item)):
-
-            # print file with tabs of the indentation
-            print("\t"*indent, item)
-
-        # check if item is a folder given the path and item name when file test fails
-        elif os.path.isdir("{0}/{1}".format(path, item)):
-
-            # print directory name with tabs of the indentation and color (orange/red)
-            print("\t"*indent, "\x1b[1;31m{}\x1b[0;0m".format(item))
-
-            # repeat the process for current item  
-            process_dir("{0}/{1}".format(path, item), indent+1)
-        else:
-            # print message when both test fails
-            print("Not a file or directory")
-
+ 
+def custom_listdir(path):
+    """
+    Returns the content of a directory by showing directories first and then
+    files in alphabetical order
+    """
+ 
+    dirs = sorted([d for d in os.listdir(path) if os.path.isdir(path + os.path.sep + d)])
+    dirs.extend(sorted([f for f in os.listdir(path) if os.path.isfile(path + os.path.sep + f)]))
+ 
+    return dirs
+ 
+def process_dir(path, indent, f):
+    """
+    Returns a list of directories and files for the provided path
+    """
+ 
+    # loop over items in directory
+    for item in custom_listdir(path):
+        itempath = os.path.join(path, item)
+        itempathbase = os.path.basename(itempath)
+ 
+        # skip hidden directories
+        if itempathbase[0] == '.' or itempath == '..':
+            continue
+ 
+        # append directory to list
+        if os.path.isdir(itempath):
+            f += "\t"*indent + "\x1b[1;31m{}\x1b[0;0m".format(itempathbase) + "\n"
+ 
+            # get next indent data
+            f = process_dir(itempath, indent+1, f)
+ 
+        # append file to list
+        if os.path.isfile(itempath):
+            f += "\t"*indent + item + "\n"
+ 
+    return f
+ 
 # accept user input
 path=input("Enter a valid system path: ")
 
@@ -34,4 +45,6 @@ path=input("Enter a valid system path: ")
 print("\x1b[1;31m{}\x1b[0;0m".format(path))
 
 # invoke process_dir function
-process_dir(path, 1)
+data = process_dir(path, indent=1, f="")
+
+print(data)
