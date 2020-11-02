@@ -44,7 +44,9 @@ path=input("Enter a valid system path: ")
 # print colored input path
 print("\x1b[1;31m{}\x1b[0;0m".format(path))
 
-# invoke process_dir function
-data = process_dir(path, indent=1, f="")
-
-print(data)
+# try calling process_dir function
+try:
+    output = process_dir(path, indent=1, f="")
+    print(output)
+except Exception as e:
+    print(e)
